@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Control de Pacientes de Odontología</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="project.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</head>
+<body>
+    <header class="project-header">
+        <a href="../index.html#portfolio" class="back-link" data-proj-lang-key="backToPortfolio">← Volver al portafolio</a>
+    </header>
+
+    <main class="project-main">
+        <section class="project-hero">
+            <h1 data-proj-lang-key="dentalPageTitle">Sistema de Control de Pacientes de Odontología</h1>
+            <div class="project-tech">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">HTML/CSS</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">LocalStorage</span>
+            </div>
+        </section>
+
+        <section class="project-gallery-section">
+            <h2 data-proj-lang-key="galleryTitle">Visualización del proyecto</h2>
+            
+            <div class="carousel-container">
+                <div class="carousel-images" id="carousel">
+                    <img src="../assets/images/projects/od1.jpg" alt="Vista del sistema 1">
+                    <img src="../assets/images/projects/od2.jpg" alt="Vista del sistema 2">
+                    <img src="../assets/images/projects/od3.jpg" alt="Vista del sistema 3">
+                    <img src="../assets/images/projects/od4.jpg" alt="Vista del sistema 4">
+                    <img src="../assets/images/projects/od5.jpg" alt="Vista del sistema 5">
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" id="prevBtn">❮</button>
+                    <div class="carousel-counter" id="carouselCounter">1 / 5</div>
+                    <button class="carousel-btn next" id="nextBtn">❯</button>
+                </div>
+            </div>
+
+            <div class="readme-btn-container">
+                <button class="btn-readme" id="openReadmeBtn" data-readme="../readme_dental.md" data-proj-lang-key="readmeBtn">readme</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal README -->
+    <div id="readme-modal" class="readme-modal">
+        <div class="readme-modal-content">
+            <span class="readme-close">&times;</span>
+            <div class="readme-body" id="readme-body">Cargando...</div>
+        </div>
+    </div>
+
+    <!-- Modal de imagen (opcional si quieren pantalla completa, pero por ahora se mantiene oculto si se usara) -->
+    <dialog class="image-dialog" id="image-dialog">
+        <img alt="Vista ampliada" src="">
+    </dialog>
+
+    <script type="text/markdown" id="raw-readme">
+# Sistema de Gestión de Clínica Dental
+
+Aplicación web desarrollada para la gestión integral de una clínica dental, permitiendo el control de pacientes, historias clínicas, odontogramas interactivos, servicios y un canal de comunicación directo con los profesionales de la salud.
+
+---
+
+## Tecnologías Utilizadas
+
+* **HTML5 y CSS3** para la estructura, diseño responsivo y estilos visuales modernos.
+* **JavaScript (Vanilla ES6+)** para la lógica del sistema, manejo del DOM y gestión de eventos.
+* **Font Awesome** para la incorporación de iconografía institucional y de interfaz.
+* **LocalStorage API** para el almacenamiento local y persistencia de los datos del sistema (usuarios, pacientes, historiales y mensajes).
+
+---
+
+## Funcionalidades Principales
+
+### 1. Módulo Público e Informativo
+* **Página de Inicio:** Presentación de la clínica con accesos directos al panel profesional.
+* **Servicios:** Listado dinámico de procedimientos (limpieza dental, tratamientos de conducto, ortodoncia, etc.) con sus tarifas asociadas mediante modales informativos.
+* **Contacto y Ubicación:** Canales de comunicación directa (WhatsApp, Instagram, Email) junto a un formulario de contacto con opciones múltiples de envío y visualización de ubicación geográfica.
+
+### 2. Panel Profesional (Acceso Médico)
+* **Autenticación Segura:** Acceso exclusivo para el personal médico autorizado.
+* **Gestión de Pacientes:** Permite registrar nuevos pacientes con información personal detallada (cédula, edad, fecha de nacimiento, teléfono, correo y ubicación) y realizar búsquedas rápidas por nombre o identificador.
+* **Historial Clínico y Odontológico:** Registro cronológico de síntomas, diagnósticos, tratamientos aplicados, procedimientos realizados y notas adicionales por paciente.
+* **Odontograma Interactivo:** Representación gráfica de los 32 dientes divididos por partes anatómicas (distal, oclusal, mesial, incisal, labial/vestibular y lingual/palatina) para registrar y limpiar patologías o tratamientos específicos por pieza dental.
+* **Buzón de Mensajes:** Panel para que el profesional visualice, gestione y marque como leídas las consultas recibidas a través del formulario web.
+* **Seguridad y Utilidades:** Opción para cambio de contraseña con notificación simulada, copias de seguridad automáticas/manuales, exportación/importación de datos en formato JSON y herramientas de depuración (*Debug*).
+    </script>
+
+    <script>
+
+
+
+        // ===== Traducciones de página de proyecto =====
+        const projectTranslations = {
+            es: {
+                dentalPageTitle: 'Sistema de Control de Pacientes de Odontología',
+                galleryTitle: 'Visualización del proyecto',
+                backToPortfolio: '← Volver al portafolio',
+                readmeBtn: 'readme'
+            },
+            en: {
+                dentalPageTitle: 'Dental Patient Management System',
+                galleryTitle: 'Project Gallery',
+                backToPortfolio: '← Back to portfolio',
+                readmeBtn: 'readme'
+            }
+        };
+        const projLang = localStorage.getItem('language') || 'es';
+        document.querySelectorAll('[data-proj-lang-key]').forEach(el => {
+            const key = el.getAttribute('data-proj-lang-key');
+            if (projectTranslations[projLang] && projectTranslations[projLang][key] !== undefined) {
+                el.textContent = projectTranslations[projLang][key];
+            }
+        });
+
+        // Carrusel
+        const carousel = document.getElementById('carousel');
+        const images = carousel.querySelectorAll('img');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('carouselCounter');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+        });
+
+        updateCarousel(); // inicializar
+
+        // Visor de imagen (Pantalla completa del carrusel)
+        const dialog = document.getElementById('image-dialog');
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                dialog.querySelector('img').src = img.src;
+                dialog.showModal();
+            });
+        });
+        dialog.addEventListener('click', e => {
+            if (e.target === dialog) dialog.close();
+        });
+
+        // README Modal
+        const readmeModal = document.getElementById('readme-modal');
+        const openReadmeBtn = document.getElementById('openReadmeBtn');
+        const closeReadmeBtn = document.querySelector('.readme-close');
+        const readmeBody = document.getElementById('readme-body');
+
+        if (openReadmeBtn) {
+            openReadmeBtn.addEventListener('click', () => {
+                const readmeFile = openReadmeBtn.getAttribute('data-readme');
+                readmeModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                const rawText = document.getElementById('raw-readme').textContent;
+                try {
+                    readmeBody.innerHTML = marked.parse(rawText);
+                } catch (err) {
+                    readmeBody.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+                }
+            });
+        }
+
+        closeReadmeBtn.addEventListener('click', () => {
+            readmeModal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === readmeModal) {
+                readmeModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

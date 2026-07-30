@@ -1,0 +1,195 @@
+/* ===========================
+   Header y Volver
+=========================== */
+.project-header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--sidebar-bg, #1c2b3a);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.1);
+}
+
+.back-link:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(-3px);
+}
+
+/* ===========================
+   Carrusel de Imágenes
+=========================== */
+.carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background-color: var(--card-bg, #fff);
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+}
+
+.carousel-images img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    max-height: 500px;
+}
+
+.carousel-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+}
+
+.carousel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-counter {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ===========================
+   Botón Leer README
+=========================== */
+.readme-btn-container {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.btn-readme {
+    display: inline-block;
+    background: var(--primary-color, #003366);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-readme:hover {
+    background: var(--secondary-color, #005a9c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* ===========================
+   Modal README
+=========================== */
+.readme-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+}
+
+.readme-modal-content {
+    background-color: var(--bg-color, #f9f9f9);
+    color: var(--text-color, #333);
+    margin: 5% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    border-radius: 12px;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.readme-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.readme-close:hover {
+    color: var(--primary-color, #003366);
+}
+
+.readme-body {
+    line-height: 1.6;
+}
+
+.readme-body h1, .readme-body h2, .readme-body h3 {
+    color: var(--primary-color, #003366);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.readme-body p {
+    margin-bottom: 1rem;
+}
+
+.readme-body ul, .readme-body ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.readme-body code {
+    background: rgba(0,0,0,0.1);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+[data-theme="dark"] .readme-body code {
+    background: rgba(255,255,255,0.1);
+}

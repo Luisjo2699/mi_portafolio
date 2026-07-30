@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP de Inventarios | Luis Sánchez</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="project.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</head>
+<body>
+    <header class="project-header">
+        <a href="../index.html#portfolio" class="back-link" data-proj-lang-key="backToPortfolio">← Volver al portafolio</a>
+    </header>
+
+    <main class="project-main">
+        <section class="project-hero">
+            <h1 data-proj-lang-key="erpPageTitle">SaaS de inventarios</h1>
+            <div class="project-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">HTML/CSS</span>
+                <span class="tech-tag">JavaScript</span>
+            </div>
+        </section>
+
+        <section class="project-gallery-section">
+            <h2 data-proj-lang-key="galleryTitle">Visualización del proyecto</h2>
+            
+            <div class="carousel-container">
+                <div class="carousel-images" id="carousel">
+                    <img src="../assets/images/projects/nexus1.jpg" alt="Dashboard principal" loading="lazy">
+                    <img src="../assets/images/projects/nexus2.jpg" alt="Gestión de inventario" loading="lazy">
+                    <img src="../assets/images/projects/nexus3.jpg" alt="Reportes y gráficos" loading="lazy">
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" id="prevBtn">❮</button>
+                    <div class="carousel-counter" id="carouselCounter">1 / 3</div>
+                    <button class="carousel-btn next" id="nextBtn">❯</button>
+                </div>
+            </div>
+
+            <div class="readme-btn-container">
+                <button class="btn-readme" id="openReadmeBtn" data-readme="../readme_NexusStock360.md" data-proj-lang-key="readmeBtn">readme</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal README -->
+    <div id="readme-modal" class="readme-modal">
+        <div class="readme-modal-content">
+            <span class="readme-close">&times;</span>
+            <div class="readme-body" id="readme-body">Cargando...</div>
+        </div>
+    </div>
+
+    <!-- Modal de imagen (opcional) -->
+    <dialog class="image-dialog" id="image-dialog">
+        <img alt="Vista ampliada" src="">
+    </dialog>
+
+    <script type="text/markdown" id="raw-readme">
+## ¿De qué trata el proyecto?
+
+**NexusStock360** es un sistema desarrollado como proyecto de tesis universitaria enfocado en la ingeniería de información y optimización logística. Nace para dar respuesta a los desafíos operativos de las empresas modernas que manejan múltiples sedes o inquilinos (*multitenant*), centralizando la adquisición, control de stock, gestión de proveedores y distribución final en una sola plataforma robusta y escalable.
+
+## Características y Módulos Principales
+
+### 1. Trazabilidad y Control de Inventarios
+* **Ciclo de Vida de Productos:** Monitoreo detallado desde la adquisición y gestión de proveedores hasta la venta y salida final.
+* **Conciliación Automatizada de Stock:** Algoritmos internos para prevenir quiebres de inventario, mermas o discrepancias de almacén.
+* **Arquitectura Multitenant:** Aislamiento seguro de datos y operaciones para permitir múltiples organizaciones o sucursales dentro de la misma infraestructura.
+
+### 2. Procesamiento Transaccional y Operaciones
+* **Procesamiento Atómico:** Uso de transacciones robustas en base de datos para garantizar que operaciones complejas de inventario no sufran inconsistencias ante fallos de red o concurrencia.
+* **Soporte Multidivisa y Financiero:** Adaptado para entornos comerciales complejos con manejo simultáneo de diferentes monedas y métodos de pago.
+
+### 3. Auditoría y Reportes Estratégicos
+* **Paneles Interactivos en Tiempo Real:** Métricas clave sobre rotación de inventarios, volúmenes de compra y estados financieros operativos.
+* **Trazabilidad Forense:** Registro detallado de cada movimiento dentro del sistema para auditorías internas y cumplimiento normativo.
+
+---
+
+## Arquitectura y Decisiones de Diseño
+
+El proyecto está diseñado bajo una arquitectura decoupled, optimizada para el rendimiento y la escalabilidad:
+
+* **Backend (FastAPI + Python):** API encargada de procesar transacciones atómicas complejas, validaciones estrictas y lógica de negocio multi-inquilino.
+* **Persistencia Relacional Avanzada (PostgreSQL):** Modelado de bases de datos relacionales enfocado en la integridad referencial, el rendimiento de consultas masivas y la seguridad de los datos.
+* **Frontend Interactivo (ReactJS):** Interfaces dinámicas orientadas a la experiencia de usuario operativa, permitiendo una gestión rápida de almacenes sin latencia perceptible.
+* **Contenedores y Despliegue (Docker):** Entornos estandarizados para asegurar la paridad entre desarrollo y producción, facilitando la portabilidad y el despliegue ágil.
+
+---
+    </script>
+
+    <script>
+
+        // ===== Traducciones de página de proyecto =====
+        const projectTranslations = {
+            es: {
+                erpPageTitle: 'SaaS de Inventarios',
+                galleryTitle: 'Visualización del proyecto',
+                backToPortfolio: '← Volver al portafolio',
+                readmeBtn: 'readme'
+            },
+            en: {
+                erpPageTitle: 'Inventory SaaS',
+                galleryTitle: 'Project Gallery',
+                backToPortfolio: '← Back to portfolio',
+                readmeBtn: 'readme'
+            }
+        };
+        const projLang = localStorage.getItem('language') || 'es';
+        document.querySelectorAll('[data-proj-lang-key]').forEach(el => {
+            const key = el.getAttribute('data-proj-lang-key');
+            if (projectTranslations[projLang] && projectTranslations[projLang][key] !== undefined) {
+                el.textContent = projectTranslations[projLang][key];
+            }
+        });
+
+        // Carrusel
+        const carousel = document.getElementById('carousel');
+        const images = carousel.querySelectorAll('img');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('carouselCounter');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+        });
+
+        updateCarousel(); // inicializar
+
+        // Visor de imagen (Pantalla completa del carrusel)
+        const dialog = document.getElementById('image-dialog');
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                dialog.querySelector('img').src = img.src;
+                dialog.showModal();
+            });
+        });
+        dialog.addEventListener('click', e => {
+            if (e.target === dialog) dialog.close();
+        });
+
+        // README Modal
+        const readmeModal = document.getElementById('readme-modal');
+        const openReadmeBtn = document.getElementById('openReadmeBtn');
+        const closeReadmeBtn = document.querySelector('.readme-close');
+        const readmeBody = document.getElementById('readme-body');
+
+        if (openReadmeBtn) {
+            openReadmeBtn.addEventListener('click', () => {
+                const readmeFile = openReadmeBtn.getAttribute('data-readme');
+                readmeModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                const rawText = document.getElementById('raw-readme').textContent;
+                try {
+                    readmeBody.innerHTML = marked.parse(rawText);
+                } catch (err) {
+                    readmeBody.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+                }
+            });
+        }
+
+        closeReadmeBtn.addEventListener('click', () => {
+            readmeModal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === readmeModal) {
+                readmeModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
